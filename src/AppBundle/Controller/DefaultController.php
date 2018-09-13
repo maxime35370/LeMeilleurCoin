@@ -46,4 +46,24 @@ class DefaultController extends Controller
         // replace this example code with whatever you need
         return $this->render('default/accueil.html.twig');
     }
+
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route(name="faq", path="/faq")
+     */
+    public function faqAction(Request $request)
+    {
+        return $this->render('default/faq.html.twig');
+    }
+
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route(name="cgu", path="/cgu")
+     */
+    public function cguAction(Request $request)
+    {
+        return $this->render('default/cgu.html.twig');
+    }
 }

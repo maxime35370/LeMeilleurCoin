@@ -18,10 +18,24 @@ FROM AppBundle:Ad a
 WHERE a.price >=:price
 DQL;
 
+    return $this
+        ->getEntityManager()
+        ->createQuery($dql)
+        ->setParameter('price', $price)
+        ->getResult();
+    }
+    public function findAdCategory($motcle)
+    {
+        $dql = <<<DQL
+SELECT a, c
+FROM AppBundle:Ad a
+LEFT JOIN a.category c 
+WHERE a.title LIKE :motcle OR a.description LIKE :motcle OR c.name LIKE :motcle
+DQL;
         return $this
             ->getEntityManager()
             ->createQuery($dql)
-            ->setParameter('price', $price)
+            ->setParameter('motcle','%'.$motcle.'%')
             ->getResult();
 
     }

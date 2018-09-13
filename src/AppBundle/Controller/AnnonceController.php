@@ -31,12 +31,15 @@ class AnnonceController extends Controller
        $listAd = $adRepository->findAll();
        //dump($listAd);*/
         $price = $request->get('price',0);
+        $motcle = $request->get('motcle','');
 
         $listAd=$this
             ->getDoctrine()
             ->getRepository(Ad::class)
-            ->findAdWithPriceGreaterThanPrice($price);
+            //->findAdWithPriceGreaterThanPrice($price)
+            ->findAdCategory($motcle);
 
+        dump($listAd);
         return $this->render('annonce/list.html.twig',[
             "listAd" => $listAd,
         ]);

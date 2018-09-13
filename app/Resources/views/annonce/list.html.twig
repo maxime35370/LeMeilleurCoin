@@ -4,6 +4,14 @@
 {% block body %}
 
     <h1>Voici la liste des annonces</h1>
+    <form method="post">
+        <div class="row">
+            <div>Recherche par mot-clé -> : &nbsp;</div>
+            <input type="text" name="motcle">
+        </div>
+    </form>
+
+    <br>
 
     <div class="row">
 
@@ -15,6 +23,9 @@
                     <p class="card-text">{{ ad.city }} - {{ ad.zip }}</p>
                     <span>Prix : {{ ad.price }} €</span>
                     <div>Date de création : {{ ad.dateCreated |date }}</div>
+                    {% if ad.category %}
+                    <div>Categorie : {{ ad.category }}</div>
+                    {% endif %}
                     <div><a href={{ path('annonce_details',{'id':ad.id}) }}><button>Voir details</button></a></div>
                 </div>
             </div>
