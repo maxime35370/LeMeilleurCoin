@@ -8,6 +8,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -26,6 +27,22 @@ class User implements UserInterface
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
@@ -58,6 +75,29 @@ class User implements UserInterface
      * @ORM\Column(type="array")
      */
     private $roles;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Ad", mappedBy="likersAds")
+     */
+    private $favoritesAds;
+
+    /**
+     * @return mixed
+     */
+    public function getFavoritesAds():Collection
+    {
+        return $this->favoritesAds;
+    }
+
+
+    public function addFavoriteAd(Ad $ad):self
+    {
+        if(!$this->favoritesAds->contains($ad))
+        {
+            $this->favoritesAds->add($ad);
+        }
+    }
+
 
     public function __construct()
     {

@@ -39,8 +39,45 @@ class AnnonceController extends Controller
             //->findAdWithPriceGreaterThanPrice($price)
             ->findAdCategory($motcle);
 
-        dump($listAd);
         return $this->render('annonce/list.html.twig',[
+            "listAd" => $listAd,
+        ]);
+    }
+
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route(name="mesAnnonces", path="/mesAnnonces")
+     */
+    public function mesAnnoncesAction(Request $request)
+    {
+        $idUser = $this->getUser()->getId();
+        $listAd = $this
+            ->getDoctrine()
+            ->getRepository(Ad::class)
+            ->findMyAd($idUser);
+
+        return $this->render('annonce/mesAnnonce.html.twig',[
+            "listAd" => $listAd,
+        ]);
+    }
+
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route(name="favoris", path="/favoris")
+     */
+    public function mesAnnoncesFavoritesAction(Request $request)
+    {
+        $motcle = $request->get('motcle','');
+        $idUser = $this->getUser()->getId();
+        $listAd = $this
+            ->getDoctrine()
+            ->getRepository(Ad::class)
+            ->findMyFavoriteAds($idUser);
+            //->findAdCategory($motcle);
+
+        return $this->render('annonce/mesAnnoncesFavorites.html.twig',[
             "listAd" => $listAd,
         ]);
     }
@@ -108,6 +145,8 @@ class AnnonceController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $ad->setUser($this->getUser());
+
             $entityManager = $this->getDoctrine()->getManager();
 
             $entityManager->persist($ad);

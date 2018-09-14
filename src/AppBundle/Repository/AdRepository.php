@@ -24,6 +24,7 @@ DQL;
         ->setParameter('price', $price)
         ->getResult();
     }
+
     public function findAdCategory($motcle)
     {
         $dql = <<<DQL
@@ -37,6 +38,34 @@ DQL;
             ->createQuery($dql)
             ->setParameter('motcle','%'.$motcle.'%')
             ->getResult();
+    }
 
+    public function findMyAd($id)
+    {
+        $dql = <<<DQL
+SELECT a
+FROM AppBundle:Ad a
+WHERE a.user = :id
+DQL;
+            return $this
+                ->getEntityManager()
+                ->createQuery($dql)
+                ->setParameter('id',$id)
+                ->getResult();
+    }
+
+    public function findMyFavoriteAds($id)
+    {
+        $dql = <<<DQL
+SELECT a
+FROM AppBundle:Ad a
+JOIN a.likersAds l
+WHERE l.id = :id
+DQL;
+        return $this
+            ->getEntityManager()
+            ->createQuery($dql)
+            ->setParameter('id', $id)
+            ->getResult();
     }
 }

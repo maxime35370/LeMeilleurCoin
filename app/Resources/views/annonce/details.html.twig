@@ -9,11 +9,14 @@
         <div class="col-4 col-md-6">
             <div class="card">
                 <div class="card-body">
+
+                    <span>Mettre en favoris cette annonce<a class="glyphicon glyphicon-star-empty" ></a></span>
                     <h5 class="card-title">{{ ad.title }}</h5>
                     <p>Description : {{ ad.description }}</p>
                     <p class="card-text">{{ ad.city }} - {{ ad.zip }}</p>
                     <span>Prix : {{ ad.price }} €</span>
                     <div>Date de création : {{ ad.dateCreated |date }}</div>
+                    <div>Créateur de l'annonce : {{ ad.user.username }}</div>
                     <div id="my_osm_widget_map">
                         <iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=-1.3897705078125002%2C47.52832925298343%2C-0.8981323242187501%2C48.331604280708326&amp;layer=mapnik" style="border: 1px solid black"></iframe><br/><small><a href="https://www.openstreetmap.org/#map=10/47.9315/-1.1440">Afficher une carte plus grande</a></small>
 

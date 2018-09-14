@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Le Meilleur Coin{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         <link rel="stylesheet" href="https://npmcdn.com/leaflet@1.0.0-rc.2/dist/leaflet.css" />
@@ -22,12 +22,22 @@
                         <li class="nav-item active">
                             <a class="nav-link" href="{{ path ("accueil") }}">Accueil <span class="sr-only"></span></a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path("annonce_depose") }}">Deposer une annonce</a>
-                        </li>
+
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path("annonce_liste") }}">Lister les annonces</a>
                         </li>
+                        {% if app.user %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path("annonce_depose") }}">Deposer une annonce</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path("annonce_mesAnnonces") }}">Lister mes annonces</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path("annonce_favoris") }}">Lister mes annonces favorites</a>
+                            </li>
+                        {% endif %}
+
                     </ul>
                 </div>
                 <div>

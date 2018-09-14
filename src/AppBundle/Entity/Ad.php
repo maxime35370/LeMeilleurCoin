@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -63,6 +64,48 @@ class Ad
      */
     private $dateCreated;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="User")
+     */
+    private $user;
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+    }
+
+    /**
+     * @ORM\ManyToMany(targetEntity="User", inversedBy="favoritesAds")
+     */
+    private $likersAds;
+
+    /**
+     * @return mixed
+     */
+    public function getLikersAds():Collection
+    {
+        return $this->likersAds;
+    }
+
+
+    public function addLikersAd(User $user):self
+    {
+        if(!$this->likersAds->contains($user))
+        {
+            $this->likersAds->add($user);
+        }
+    }
 
     /**
      * @ORM\ManyToOne(targetEntity="Category")
